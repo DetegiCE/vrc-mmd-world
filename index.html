@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRC MMD Worlds</title>
+    <!--
+    music: https://gist.githubusercontent.com/DetegiCE/214a5f645c09e0e14b368a38b7d34ef8/raw/39e0da14a227615183c603dded09a657dd7c760b/mmd_music.json
+    world: https://gist.githubusercontent.com/DetegiCE/78d8cd1d09c3dd2ba40d88816fd99360/raw/003110bc8484feae1ef4b9da321105a27d2f53ab/mmd_world.json
+    world_music: https://gist.githubusercontent.com/DetegiCE/e6e821786ad37b73f2e499c11d4a0cd6/raw/fed89257365d5deb420884c8d0ea9ac71c9f11ed/mmd_world_music.json
+    -->
+    <script>
+        const music_ep = "https://gist.githubusercontent.com/DetegiCE/214a5f645c09e0e14b368a38b7d34ef8/raw/39e0da14a227615183c603dded09a657dd7c760b/mmd_music.json";
+        const world_ep = "https://gist.githubusercontent.com/DetegiCE/78d8cd1d09c3dd2ba40d88816fd99360/raw/003110bc8484feae1ef4b9da321105a27d2f53ab/mmd_world.json";
+        const world_music_ep = "https://gist.githubusercontent.com/DetegiCE/e6e821786ad37b73f2e499c11d4a0cd6/raw/fed89257365d5deb420884c8d0ea9ac71c9f11ed/mmd_world_music.json";
+
+        let music_data = [];
+        let world_data = [];
+        let world_music_data = [];
+
+        getMusic().then(data => music_data = data);
+        getWorld().then(data => world_data = data);
+        getWorldMusic().then(data => world_music_data = data);
+
+        async function getMusic() {
+            const response = await fetch(music_ep);
+            const data = await response.json();
+            return data;
+        }
+
+        async function getWorld() {
+            const response = await fetch(world_ep);
+            const data = await response.json();
+            return data;
+        }
+
+        async function getWorldMusic() {
+            const response = await fetch(world_music_ep);
+            const data = await response.json();
+            return data;
+        }
+
+        function searchMusic() {
+            const search = document.querySelector("#musicSearch").value;
+            console.log(search);
+            const result = music_data.filter(music => music.title.includes(search));
+            console.log(result);
+            if (result.length === 0) {
+                alert("검색 결과가 없습니다.");
+                return;
+            }
+            const songname = document.querySelector("#songname");
+            songname.textContent = result[0].title;
+            const resultId = result[0].id;
+
+            const worldList = document.querySelector("#worldList");
+            worldList.innerHTML = "";
+            const resultWorld = world_music_data.filter(world => world.musicid === resultId);
+            console.log(resultWorld);
+
+            resultWorld.forEach(world => {
+                const li = document.createElement("li");
+                const worldName = world_data.find(w => w.id === world.worldid).name;
+                li.textContent = worldName;
+                worldList.appendChild(li);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <h1>MMD Music Searcher</h1>
+        <section>
+            <form action="" onsubmit="return false;">
+                <input type="search" id="musicSearch">
+                <input type="submit" value="검색" onclick="searchMusic()">
+            </form>
+        </section>
+        <section>
+            <h1 id="songname"></h1>
+            <h2>검색된 월드</h2>
+            <ul id="worldList">
+            </ul>
+        </section>
+    </div>
+</body>
+
+</html>
