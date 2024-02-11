@@ -14,9 +14,9 @@
     <link rel="icon" href="static/img/icon/favi.ico">
     <link rel="stylesheet" href="static/css/style.css">
     <script>
-        const music_ep = "https://gist.githubusercontent.com/DetegiCE/214a5f645c09e0e14b368a38b7d34ef8/raw/e01b291d8b0c743dc5520dad9fd494af64ba77ec/mmd_music.json";
-        const world_ep = "https://gist.githubusercontent.com/DetegiCE/78d8cd1d09c3dd2ba40d88816fd99360/raw/003110bc8484feae1ef4b9da321105a27d2f53ab/mmd_world.json";
-        const world_music_ep = "https://gist.githubusercontent.com/DetegiCE/e6e821786ad37b73f2e499c11d4a0cd6/raw/aacde3fdaea6d91d266f3d31557cb8ae9fcae9fe/mmd_world_music.json";
+        const world_ep = "https://gist.githubusercontent.com/DetegiCE/78d8cd1d09c3dd2ba40d88816fd99360/raw/6230d7a66079fe6a1f2cf690daaa0d57c66e09ee/mmd_world.json";
+        const music_ep = "https://gist.githubusercontent.com/DetegiCE/214a5f645c09e0e14b368a38b7d34ef8/raw/00592e70147380ef589596258ca6c6a619104ae0/mmd_music.json";
+        const world_music_ep = "https://gist.githubusercontent.com/DetegiCE/e6e821786ad37b73f2e499c11d4a0cd6/raw/e60aa14da1d049dfc2c4d6f0532898515fe6c9c3/mmd_world_music.json";
 
         let music_data = [];
         let world_data = [];
@@ -83,6 +83,11 @@
             let regex = '.*' + spl.join(".*") + '.*';
 
             const result = music_data.filter(music => (music.title.match(new RegExp(regex, "gi")) || music.alias.match(new RegExp(regex, "gi"))));
+            result.sort((a, b) => {
+                if (a.title < b.title) return -1;
+                if (a.title > b.title) return 1;
+                return 0;
+            });
 
             const musicList = document.querySelector("#musicList");
             musicList.innerHTML = "";
