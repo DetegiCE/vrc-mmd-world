@@ -83,6 +83,93 @@ header {
     color: #fff;
 }
 
+#cntBox {
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 10px;
+}
+
+#cntBox input[type="button"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #666;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+#cntBox input[type="button"]:nth-child(1).active {
+    background-color: hsl(0, 60%, 50%);
+    color: white;
+}
+
+#cntBox input[type="button"]:nth-child(1):hover {
+    background-color: hsl(0, 60%, 50%);
+    color: white;
+}
+
+#cntBox input[type="button"]:nth-child(1):active {
+    background-color: hsl(0, 60%, 40%);
+}
+
+#cntBox input[type="button"]:nth-child(2).active {
+    background-color: hsl(36, 60%, 50%);
+    color: white;
+}
+
+#cntBox input[type="button"]:nth-child(2):hover {
+    background-color: hsl(36, 60%, 50%);
+    color: white;
+}
+
+#cntBox input[type="button"]:nth-child(2):active {
+    background-color: hsl(36, 60%, 40%);
+}
+
+#cntBox input[type="button"]:nth-child(3).active {
+    background-color: hsl(132, 60%, 40%);
+    color: white;
+}
+
+#cntBox input[type="button"]:nth-child(3):hover {
+    background-color: hsl(132, 60%, 40%);
+    color: white;
+}
+
+#cntBox input[type="button"]:nth-child(3):active {
+    background-color: hsl(132, 60%, 30%);
+}
+
+#cntBox input[type="button"]:nth-child(4).active {
+    background-color: hsl(218, 60%, 50%);
+    color: white;
+}
+
+#cntBox input[type="button"]:nth-child(4):hover {
+    background-color: hsl(218, 60%, 50%);
+    color: white;
+}
+
+#cntBox input[type="button"]:nth-child(4):active {
+    background-color: hsl(218, 60%, 40%);
+}
+
+#cntBox input[type="button"]:nth-child(5).active {
+    background-color: hsl(298, 60%, 40%);
+    color: white;
+}
+
+#cntBox input[type="button"]:nth-child(5):hover {
+    background-color: hsl(298, 60%, 40%);
+    color: white;
+}
+
+#cntBox input[type="button"]:nth-child(5):active {
+    background-color: hsl(298, 60%, 30%);
+}
+
 #searchBox br {
     display: none;
     clear: left;

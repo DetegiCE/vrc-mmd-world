@@ -86,6 +86,44 @@
                 return 0;
             });
 
+            const cntBox = document.querySelector("#cntBox");
+            for (let i = 0; i < cntBox.children.length; i++) {
+                cntBox.children[i].classList.remove("active");
+            }
+
+            const musicList = document.querySelector("#musicList");
+            musicList.innerHTML = "";
+            result.forEach(music => {
+                const li = document.createElement("li");
+                li.textContent = music.title + " (" + music.cnt + ")";
+                li.onclick = function () {
+                    document.querySelector("#musicSearch").value = music.title;
+                    searchMusic();
+                }
+                musicList.appendChild(li);
+            });
+        }
+
+        function filterCnt(cnt) {
+            let result = [];
+            if (cnt === 5)
+                result = music_data.filter(music => music.cnt >= cnt);
+            else
+                result = music_data.filter(music => music.cnt == cnt);
+            result.sort((a, b) => {
+                if (a.title < b.title) return -1;
+                if (a.title > b.title) return 1;
+                return 0;
+            });
+
+            const cntBox = document.querySelector("#cntBox");
+            for (let i = 0; i < cntBox.children.length; i++) {
+                cntBox.children[i].classList.remove("active");
+            }
+
+            const currentBox = cntBox.children[cnt - 1];
+            currentBox.classList.add("active");
+
             const musicList = document.querySelector("#musicList");
             musicList.innerHTML = "";
             result.forEach(music => {
@@ -111,6 +149,13 @@
                 <input type="search" id="musicSearch" oninput="listMusic()" autocomplete="off">
                 <input type="submit" value="검색" onclick="searchMusic()">
             </form>
+            <div id="cntBox">
+                <input type="button" value="1인" onclick="filterCnt(1)">
+                <input type="button" value="2인" onclick="filterCnt(2)">
+                <input type="button" value="3인" onclick="filterCnt(3)">
+                <input type="button" value="4인" onclick="filterCnt(4)">
+                <input type="button" value="5인 이상" onclick="filterCnt(5)">
+            </div>
             <ul id="musicList"></ul>
             <br>
         </section>
