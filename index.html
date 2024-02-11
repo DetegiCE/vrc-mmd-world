@@ -22,7 +22,7 @@
         let world_data = [];
         let world_music_data = [];
 
-        getMusic().then(data => music_data = data);
+        getMusic().then(data => music_data = data).then(() => listMusic());
         getWorld().then(data => world_data = data);
         getWorldMusic().then(data => world_music_data = data);
 
