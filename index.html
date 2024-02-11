@@ -8,8 +8,9 @@
     <meta name="author" content="Sui Sensei / 스이 센세">
     <meta name="og:site_name" content="VRC MMD World Search">
     <meta name="og:title" content="VRC MMD Worlds">
-    <meta name="og:image" content="static/img/icon/favi.ico">
-    <meta name="og:thumbnail" content="static/img/icon/favi.ico">
+    <meta name="og:image" content="static/img/icon/favi.png">
+    <meta name="og:thumbnail" content="static/img/icon/favi.png">
+    <meta name="og:url" content="https://mmd.sui.kr/">
     <title>VRC MMD Worlds</title>
     <link rel="icon" href="static/img/icon/favi.ico">
     <link rel="stylesheet" href="static/css/style.css">
@@ -46,11 +47,7 @@
 
         function searchMusic() {
             const search = document.querySelector("#musicSearch").value;
-
-            let spl = search.split("");
-            let regex = '.*' + spl.join(".*") + '.*';
-
-            const result = music_data.filter(music => music.title.match(new RegExp(regex, "gi") || music.alias.match(new RegExp(regex, "gi"))));
+            const result = music_data.filter(music => music.title === search);
 
             const songname = document.querySelector("#songname");
             songname.textContent = result[0].title + " (" + result[0].cnt + ")";
