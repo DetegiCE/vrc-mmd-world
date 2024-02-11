@@ -5,15 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VRC MMD Worlds</title>
-    <!--
-    music: https://gist.githubusercontent.com/DetegiCE/214a5f645c09e0e14b368a38b7d34ef8/raw/39e0da14a227615183c603dded09a657dd7c760b/mmd_music.json
-    world: https://gist.githubusercontent.com/DetegiCE/78d8cd1d09c3dd2ba40d88816fd99360/raw/003110bc8484feae1ef4b9da321105a27d2f53ab/mmd_world.json
-    world_music: https://gist.githubusercontent.com/DetegiCE/e6e821786ad37b73f2e499c11d4a0cd6/raw/fed89257365d5deb420884c8d0ea9ac71c9f11ed/mmd_world_music.json
-    -->
     <script>
-        const music_ep = "https://gist.githubusercontent.com/DetegiCE/214a5f645c09e0e14b368a38b7d34ef8/raw/39e0da14a227615183c603dded09a657dd7c760b/mmd_music.json";
+        const music_ep = "https://gist.githubusercontent.com/DetegiCE/214a5f645c09e0e14b368a38b7d34ef8/raw/c4cfe5a1118f87d7d160e84dabe924f9498d810b/mmd_music.json";
         const world_ep = "https://gist.githubusercontent.com/DetegiCE/78d8cd1d09c3dd2ba40d88816fd99360/raw/003110bc8484feae1ef4b9da321105a27d2f53ab/mmd_world.json";
-        const world_music_ep = "https://gist.githubusercontent.com/DetegiCE/e6e821786ad37b73f2e499c11d4a0cd6/raw/fed89257365d5deb420884c8d0ea9ac71c9f11ed/mmd_world_music.json";
+        const world_music_ep = "https://gist.githubusercontent.com/DetegiCE/e6e821786ad37b73f2e499c11d4a0cd6/raw/0e789e2b56c88634038974f4d8a5e7d48c87fb67/mmd_world_music.json";
 
         let music_data = [];
         let world_data = [];
@@ -43,15 +38,14 @@
 
         function searchMusic() {
             const search = document.querySelector("#musicSearch").value;
-            console.log(search);
-            const result = music_data.filter(music => music.title.includes(search));
-            console.log(result);
-            if (result.length === 0) {
-                alert("검색 결과가 없습니다.");
-                return;
-            }
+
+            let spl = search.split("");
+            let regex = '.*' + spl.join(".*") + '.*';
+
+            const result = music_data.filter(music => music.title.match(new RegExp(regex, "gi") || music.alias.match(new RegExp(regex, "gi"))));
+
             const songname = document.querySelector("#songname");
-            songname.textContent = result[0].title;
+            songname.textContent = result[0].title + " (" + result[0].cnt + ")";
             const resultId = result[0].id;
 
             const worldList = document.querySelector("#worldList");
@@ -66,6 +60,23 @@
                 worldList.appendChild(li);
             });
         }
+
+        function listMusic() {
+            const search = document.querySelector("#musicSearch").value;
+
+            let spl = search.split("");
+            let regex = '.*' + spl.join(".*") + '.*';
+
+            const result = music_data.filter(music => (music.title.match(new RegExp(regex, "gi")) || music.alias.match(new RegExp(regex, "gi"))));
+
+            const musicList = document.querySelector("#musicList");
+            musicList.innerHTML = "";
+            result.forEach(music => {
+                const li = document.createElement("li");
+                li.textContent = music.title + " (" + music.cnt + ")";
+                musicList.appendChild(li);
+            });
+        }
     </script>
 </head>
 
@@ -74,9 +85,10 @@
         <h1>MMD Music Searcher</h1>
         <section>
             <form action="" onsubmit="return false;">
-                <input type="search" id="musicSearch">
+                <input type="search" id="musicSearch" oninput="listMusic()" autocomplete="off">
                 <input type="submit" value="검색" onclick="searchMusic()">
             </form>
+            <ul id="musicList"></ul>
         </section>
         <section>
             <h1 id="songname"></h1>
