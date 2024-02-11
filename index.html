@@ -11,6 +11,7 @@
     <meta name="og:image" content="static/img/icon/favi.ico">
     <title>VRC MMD Worlds</title>
     <link rel="icon" href="static/img/icon/favi.ico">
+    <link rel="stylesheet" href="static/css/style.css">
     <script>
         const music_ep = "https://gist.githubusercontent.com/DetegiCE/214a5f645c09e0e14b368a38b7d34ef8/raw/c4cfe5a1118f87d7d160e84dabe924f9498d810b/mmd_music.json";
         const world_ep = "https://gist.githubusercontent.com/DetegiCE/78d8cd1d09c3dd2ba40d88816fd99360/raw/003110bc8484feae1ef4b9da321105a27d2f53ab/mmd_world.json";
@@ -61,9 +62,16 @@
 
             resultWorld.forEach(world => {
                 const li = document.createElement("li");
-                const worldName = world_data.find(w => w.id === world.worldid).name;
-                li.textContent = worldName;
-                worldList.appendChild(li);
+                const id = world.worldid;
+                const worldname = world_data.find(w => w.id === id).name;
+                const worldid = world_data.find(w => w.id === id).worldid;
+                const author = world_data.find(w => w.id === id).author;
+                li.innerHTML = `
+                    <img src="static/img/world/${id}.png" alt="${worldname}">
+                    <h2>${worldname} <span>by ${author}</span></h2>
+                    <a href="https://vrchat.com/home/world/${worldid}" target="_blank">바로가기</a>
+                `;
+                worldList.append(li);
             });
         }
 
@@ -80,6 +88,10 @@
             result.forEach(music => {
                 const li = document.createElement("li");
                 li.textContent = music.title + " (" + music.cnt + ")";
+                li.onclick = function () {
+                    document.querySelector("#musicSearch").value = music.title;
+                    searchMusic();
+                }
                 musicList.appendChild(li);
             });
         }
@@ -88,15 +100,18 @@
 
 <body>
     <div id="container">
-        <h1>MMD Music Searcher</h1>
-        <section>
+        <header>
+            <h1>MMD Music Searcher</h1>
+        </header>
+        <section id="searchBox">
             <form action="" onsubmit="return false;">
                 <input type="search" id="musicSearch" oninput="listMusic()" autocomplete="off">
                 <input type="submit" value="검색" onclick="searchMusic()">
             </form>
             <ul id="musicList"></ul>
+            <br>
         </section>
-        <section>
+        <section id="resultBox">
             <h1 id="songname"></h1>
             <h2>검색된 월드</h2>
             <ul id="worldList">

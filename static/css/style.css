@@ -1,0 +1,139 @@
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    width: 70%;
+    margin: 30px auto 0;
+    padding: 0;
+}
+
+header {
+    padding: 20px 0;
+    text-align: center;
+}
+
+#searchBox {
+    width: 100%;
+    margin: 20px 0;
+    text-align: center;
+}
+
+#searchBox input[type="search"] {
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 20px;
+    border: 1px solid #666;
+    border-radius: 30px;
+    margin-bottom: 5px;
+}
+
+#searchBox input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #666;
+    border-radius: 5px;
+    background-color: #666;
+    color: #fff;
+    cursor: pointer;
+}
+
+#searchBox input[type="submit"]:hover {
+    background-color: #333;
+}
+
+#searchBox input[type="submit"]:active {
+    background-color: #000;
+}
+
+#musicList {
+    margin: 20px 0;
+    list-style: none;
+    height: 200px;
+    border: 1px solid #666;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: hidden;
+}
+
+#musicList>li {
+    float: left;
+    padding: 5px 10px;
+    border: 1px solid #666;
+    font-size: 15px;
+    border-radius: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+#musicList>li:hover {
+    background-color: #666;
+    color: #fff;
+}
+
+#musicList>li:active {
+    background-color: #333;
+    color: #fff;
+}
+
+#searchBox br {
+    display: none;
+    clear: left;
+}
+
+#songname {
+    margin: 20px 0;
+    padding-bottom: 10px;
+    text-align: center;
+    border-bottom: 1px solid #666;
+}
+
+#worldList {
+    list-style: none;
+    width: 100%;
+}
+
+#worldList li {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #666;
+    border-radius: 5px;
+}
+
+#worldList img {
+    width: 100%;
+    grid-row: 1/4;
+    grid-column: 1/2;
+}
+
+#worldList h2,
+#worldList a {
+    padding-left: 20px;
+}
+
+#worldList h2 {
+    grid-row: 1/2;
+    grid-column: 2/3;
+}
+
+#worldList span {
+    color: #666;
+    font-size: 15px;
+}
+
+#worldList a {
+    font-size: 18px;
+    text-decoration: none;
+    color: #666;
+}
+
+#worldList a:hover {
+    color: #333;
+}
